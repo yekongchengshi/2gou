@@ -8,10 +8,9 @@
 ---
 
 # 🌄<font style="color:#58a401;"> 游戏截图</font>
-
+---
 ![](/blogs/zong-se-chen-ai-2/9839454c993a900e.png)
 ![](/blogs/zong-se-chen-ai-2/e3eda6fad4083508.png)
----
 
 # ✨<font style="color:#58a401;">核心玩法</font>
 ## 1. 核心战斗：3x4 战棋回合制（策略核心）
