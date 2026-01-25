@@ -5,33 +5,27 @@ import Card from '@/components/card'
 import { useCenterStore } from '@/hooks/use-center'
 import { useConfigStore } from './stores/config-store'
 import { CARD_SPACING } from '@/consts'
-import shareList from '@/app/Notes/list.json'
 import Link from 'next/link'
 import { HomeDraggableLayer } from './home-draggable-layer'
-
-type ShareItem = {
-	name: string
-	url: string
-	logo: string
-	description: string
-	tags: string[]
-	stars: number
-}
+import { useBlogIndex } from '@/hooks/use-blog-index'
 
 export default function ShareCard() {
 	const center = useCenterStore()
 	const { cardStyles, siteContent } = useConfigStore()
-	const [randomItem, setRandomItem] = useState<ShareItem | null>(null)
+	const { items: articles } = useBlogIndex()
+	const [randomArticle, setRandomArticle] = useState<any>(null)
 	const styles = cardStyles.shareCard
 	const hiCardStyles = cardStyles.hiCard
 	const socialButtonsStyles = cardStyles.socialButtons
 
 	useEffect(() => {
-		const randomIndex = Math.floor(Math.random() * shareList.length)
-		setRandomItem(shareList[randomIndex])
-	}, [])
+		if (articles.length > 0) {
+			const randomIndex = Math.floor(Math.random() * articles.length)
+			setRandomArticle(articles[randomIndex])
+		}
+	}, [articles])
 
-	if (!randomItem) {
+	if (!randomArticle) {
 		return null
 	}
 
@@ -54,15 +48,15 @@ export default function ShareCard() {
 
 				<h2 className='text-secondary text-sm'>随机推荐</h2>
 
-				<Link href='/share' className='mt-2 block space-y-2'>
+				<Link href={`/blog/${randomArticle.id}`} className='mt-2 block space-y-2'>
 					<div className='flex items-center'>
 						<div className='relative mr-3 h-12 w-12 shrink-0 overflow-hidden rounded-xl'>
-							<img src={randomItem.logo} alt={randomItem.name} className='h-full w-full object-contain' />
+							<img src={randomArticle.cover} alt={randomArticle.title} className='h-full w-full object-cover' />
 						</div>
-						<h3 className='text-sm font-medium'>{randomItem.name}</h3>
+						<h3 className='text-sm font-medium'>{randomArticle.title}</h3>
 					</div>
 
-					<p className='text-secondary line-clamp-3 text-xs'>{randomItem.description}</p>
+					<p className='text-secondary line-clamp-3 text-xs'>{randomArticle.summary}</p>
 				</Link>
 			</Card>
 		</HomeDraggableLayer>
