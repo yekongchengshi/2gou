@@ -34,7 +34,12 @@
 <font style="color:#DF2A3F;">NEXT_PUBLIC_GITHUB_BRANCH</font>=main（默认）
 
 <font style="color:#DF2A3F;">NEXT_PUBLIC_GITHUB_APP_ID</font>=2724454（APP ID）
-
+##### 下拉浏览器，找到密钥，点击生成密钥
+![](/blogs/yysuni/241e0471ed5ded5c.webp)
+##### 上拉游览器，找到<font style="color:#DF2A3F;">Install app</font>点击<font style="color:#DF2A3F;">Install</font>安装app
+![](/blogs/yysuni/099a1d56eb96f204.webp)
+##### 选择存有你克隆项目的仓库，点击安装
+![](/blogs/yysuni/5f7ba9eae16dd610.webp)
 至此，Github 中设置已经完毕。
 
 ---
