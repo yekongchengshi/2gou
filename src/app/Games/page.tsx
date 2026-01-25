@@ -79,6 +79,7 @@ export default function Page() {
               animate={{ opacity: 1, scale: 1 }}
               whileHover={{ scale: 1.03, boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)' }}
               transition={{ duration: 0.3 }}
+              className='group'
               style={{ 
                 width: '200px', 
                 height: '300px', // 2:3 比例
@@ -91,7 +92,29 @@ export default function Page() {
                 overflow: 'hidden'
               }}
             >
-                <Link href={`/blog/${article.slug}`} style={{ display: 'block', height: '100%', textDecoration: 'none' }}>
+                <Link 
+                  href={`/blog/${article.slug}`} 
+                  style={{ 
+                    display: 'block', 
+                    height: '100%', 
+                    textDecoration: 'none',
+                    position: 'relative'
+                  }}
+                  onMouseEnter={(e) => {
+                    const content = e.currentTarget.querySelector('.card-content');
+                    if (content) {
+                      content.style.transform = 'translateY(0)';
+                      content.style.opacity = '1';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    const content = e.currentTarget.querySelector('.card-content');
+                    if (content) {
+                      content.style.transform = 'translateY(100%)';
+                      content.style.opacity = '0';
+                    }
+                  }}
+                >
                   {/* 封面图片 */}
                   <div style={{ 
                     position: 'absolute',
@@ -116,16 +139,18 @@ export default function Page() {
                     )}
                   </div>
                   
-                  {/* 卡片内容 - 无背景，层级在封面之上 */}
-                  <div style={{ 
+                  {/* 卡片内容 - 黑色透明背景，层级在封面之上 - 初始隐藏，悬停时上浮显示 */}
+                  <div className="card-content" style={{ 
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
                     right: 0,
                     padding: '16px',
                     transition: 'transform 0.3s ease, opacity 0.3s ease',
-                    transform: 'translateY(0)',
-                    opacity: 1
+                    transform: 'translateY(100%)',
+                    opacity: 0,
+                    background: 'rgba(0, 0, 0, 0.6)',
+                    backdropFilter: 'blur(2px)'
                   }}>
                     <h2 style={{ 
                       fontSize: '1rem', 
@@ -135,8 +160,7 @@ export default function Page() {
                       overflow: 'hidden', 
                       textOverflow: 'ellipsis', 
                       whiteSpace: 'nowrap', 
-                      color: '#000',
-                      textShadow: '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff'
+                      color: '#fff'
                     }}>
                       {article.title}
                     </h2>
@@ -149,8 +173,7 @@ export default function Page() {
                     }}>
                       <div style={{ 
                         fontSize: '0.75rem', 
-                        color: '#000',
-                        textShadow: '1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff'
+                        color: '#fff'
                       }}>
                         {new Date(article.date).toLocaleDateString('zh-CN')}
                       </div>
